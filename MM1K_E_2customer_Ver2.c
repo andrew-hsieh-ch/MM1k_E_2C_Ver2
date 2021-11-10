@@ -256,7 +256,6 @@ int main()
 		printf("C_num_in_queue= %d \n", C_Num_In_Queue);
 		printf("C2_num_in_queue= %d \n", C2_Num_In_Queue);
 		printf("C1_num_in_queue= %d \n", C1_Num_In_Queue);
-
 		for (int i = 0; i <= C_Num_In_Queue; i++) { 
 				printf(" %d ", C_Arrival_Type[i]);
 		}
@@ -495,15 +494,28 @@ void depature(double *Sim_Time, double *next_dept_time, double *Time_since_Last_
 			*E_total_sys_delay += *E_sys_delay;
 			
 			
-			for (int i = 0; i < *C_Num_In_Queue; i++) 
+			for (int i = 0; i <= *C_Num_In_Queue; i++)
 			{
-				C_Time_Arrival[i] = C_Time_Arrival[i + 1];
+			    if (i == *C_Num_In_Queue){
+                C_Time_Arrival[i] = 0;
+				C_Arrival_Type[i] = 0;
+			    }
+			    else{
+                C_Time_Arrival[i] = C_Time_Arrival[i + 1];
 				C_Arrival_Type[i] = C_Arrival_Type[i + 1];
+			    }
+
+
 			}
 
-			for (int i = 0; i < *E_Num_In_Queue; i++)
+			for (int i = 0; i <= *E_Num_In_Queue; i++)
 			{
+			    if (i ==*E_Num_In_Queue){
+                E_Time_Arrival[i] = 0;
+			    }
+                else{
 				E_Time_Arrival[i] = E_Time_Arrival[i + 1];
+                }
 			}
 			(*C_Num_In_Queue)--;
 			(*C1_Num_In_Queue)--;
@@ -571,15 +583,26 @@ void depature(double *Sim_Time, double *next_dept_time, double *Time_since_Last_
 			*E_total_sys_delay += *E_sys_delay;
 			
 			
-			for (int i = 0; i < *C_Num_In_Queue; i++) 
+			for (int i = 0; i <= *C_Num_In_Queue; i++)
 			{
-				C_Time_Arrival[i] = C_Time_Arrival[i + 1];
+				 if (i == *C_Num_In_Queue){
+                C_Time_Arrival[i] = 0;
+				C_Arrival_Type[i] = 0;
+			    }
+			    else{
+                C_Time_Arrival[i] = C_Time_Arrival[i + 1];
 				C_Arrival_Type[i] = C_Arrival_Type[i + 1];
+			    }
 			}
 
-			for (int i = 0; i < *E_Num_In_Queue; i++)
+			for (int i = 0; i <= *E_Num_In_Queue; i++)
 			{
+			     if (i == *E_Num_In_Queue-1){
+                E_Time_Arrival[i] = 0;
+			    }
+			    else{
 				E_Time_Arrival[i] = E_Time_Arrival[i + 2];
+			    }
 			}
 			(*C_Num_In_Queue)--;
 			(*C2_Num_In_Queue)--;
@@ -670,10 +693,16 @@ void E_arrival(double *Sim_Time, double *E_next_arr_time, float *E_mean_interarr
 				
 					E_Time_Arrival[0] = *Sim_Time;
             
-					for (int i = 0; i < *C_Num_In_Queue; i++)
+					for (int i = 0; i <= *C_Num_In_Queue; i++)
 					{
-						C_Time_Arrival[i] = C_Time_Arrival[i + 1];
-						C_Arrival_Type[i] = C_Arrival_Type[i + 1];
+						 if (i == *C_Num_In_Queue){
+                        C_Time_Arrival[i] = 0;
+                        C_Arrival_Type[i] = 0;
+			    }
+			    else{
+                C_Time_Arrival[i] = C_Time_Arrival[i + 1];
+				C_Arrival_Type[i] = C_Arrival_Type[i + 1];
+			    }
 					}
 					(*C1_Num_In_Queue)--;
 					(*C_Num_In_Queue)--;	
@@ -720,10 +749,16 @@ void E_arrival(double *Sim_Time, double *E_next_arr_time, float *E_mean_interarr
 					
 					E_Time_Arrival[0] = *Sim_Time;
             
-					for (int i = 0; i < *C_Num_In_Queue; i++)
+					for (int i = 0; i <= *C_Num_In_Queue; i++)
 					{
-						C_Time_Arrival[i] = C_Time_Arrival[i + 1];
-						C_Arrival_Type[i] = C_Arrival_Type[i + 1];
+						 if (i == *C_Num_In_Queue){
+                        C_Time_Arrival[i] = 0;
+                        C_Arrival_Type[i] = 0;
+			    }
+			    else{
+                C_Time_Arrival[i] = C_Time_Arrival[i + 1];
+				C_Arrival_Type[i] = C_Arrival_Type[i + 1];
+			    }
 					}
 					(*C2_Num_In_Queue)--;
 					(*C_Num_In_Queue)--;
@@ -816,9 +851,14 @@ void C1_arrival(double *Sim_Time, double *C1_next_arr_time, float *C1_mean_inter
 
 			C_Time_Arrival[0] = *Sim_Time;
             
-			for (int i = 0; i < *E_Num_In_Queue; i++) 
+			for (int i = 0; i <= *E_Num_In_Queue; i++)
 			{
+			    if (i == *E_Num_In_Queue){
+                    E_Time_Arrival[i] = 0;
+			    }
+			    else{
 				E_Time_Arrival[i] = E_Time_Arrival[i + 1];
+			    }
 			}
 			(*E_Num_In_Queue)--;
 		}
@@ -897,9 +937,15 @@ void C2_arrival(double *Sim_Time, double *C2_next_arr_time, float *C2_mean_inter
 
 			C_Time_Arrival[0] = *Sim_Time;
             
-			for (int i = 0; i < *E_Num_In_Queue; i++) 
+				for (int i = 0; i <= *E_Num_In_Queue; i++)
 			{
+			    if (i == *E_Num_In_Queue-1 || i==*E_Num_In_Queue){
+                        E_Time_Arrival[i] = 0;
+
+			    }
+			    else{
 				E_Time_Arrival[i] = E_Time_Arrival[i + 2];
+			    }
 			}
 			(*E_Num_In_Queue)--;
 			(*E_Num_In_Queue)--;
